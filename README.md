@@ -107,6 +107,18 @@ cp env.example .env
 # TAVILY_API_KEY=your-tavily-api-key
 ```
 
+### Use your Claude subscription instead of a model API key
+
+If you have a Claude Pro/Max plan and [Claude Code](https://claude.com/claude-code) installed and signed in (run `claude` once), Dexter needs no model API key. Pick **Claude Code (your subscription)** in the model picker, or put this in `.dexter/settings.json`:
+
+```json
+{ "provider": "claude-code", "modelId": "claude-code:claude-sonnet-5-5" }
+```
+
+Each model call runs the local `claude` command in a stripped-down mode (`--safe-mode`, no Claude Code tools, nothing saved), so usage counts against your plan like any other Claude Code use. Dexter never reads or stores your Claude login; it only starts the `claude` program. Any `ANTHROPIC_API_KEY` in your environment is hidden from that program so it cannot bill the API instead. Tool calling and structured output are emulated with `--json-schema`; replies arrive whole rather than token by token.
+
+Notes: a plan has usage limits and an agent loop makes many calls, so a cheaper model (Sonnet or Haiku) stretches it furthest. `DEXTER_CLAUDE_CONCURRENCY` (default 3) caps parallel calls. `bun run check:claude` runs three live calls (plain, tool call, structured output) to verify the setup. You still need a market-data key (`FINANCIAL_DATASETS_API_KEY`).
+
 ## 🚀 How to Run
 
 Run Dexter in interactive mode:

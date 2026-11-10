@@ -13,6 +13,7 @@
     "gateway": "tsx src/gateway/index.ts run",
     "gateway:login": "tsx src/gateway/index.ts login",
     "typecheck": "tsc --noEmit",
+    "check:claude": "bun run scripts/check-claude-code.ts",
     "test": "bun test",
     "test:watch": "bun test --watch",
     "postinstall": "playwright install chromium"

@@ -12,6 +12,13 @@ interface Provider {
 }
 
 const PROVIDER_MODELS: Record<string, Model[]> = {
+  // Served by the local `claude` command on your Claude subscription; no API key.
+  'claude-code': [
+    { id: 'claude-code:claude-sonnet-5-5', displayName: 'Sonnet 5.5 (subscription)' },
+    { id: 'claude-code:claude-opus-5-5', displayName: 'Opus 5.5 (subscription)' },
+    { id: 'claude-code:claude-fable-5-2', displayName: 'Fable 5.2 (subscription)' },
+    { id: 'claude-code:claude-haiku-5-5', displayName: 'Haiku 5.5 (subscription)' },
+  ],
   openai: [
     { id: 'gpt-6-astra', displayName: 'GPT 6 Astra' },
     { id: 'gpt-6-sol', displayName: 'GPT 6 Sol' },

@@ -14,6 +14,7 @@ import type { TokenUsage } from '@/agent/types';
 import { logger } from '@/utils';
 import { classifyError, isNonRetryableError } from '@/utils/errors';
 import { resolveProvider, getProviderById } from '@/providers';
+import { ChatClaudeCode } from '@/model/claude-code';
 
 export const DEFAULT_PROVIDER = 'openai';
 export const DEFAULT_MODEL = 'gpt-6-astra';
@@ -66,6 +67,8 @@ function getApiKey(envVar: string): string {
 
 // Factories keyed by provider id — prefix routing is handled by resolveProvider()
 const MODEL_FACTORIES: Record<string, ModelFactory> = {
+  // No API key: runs on the user's Claude subscription via the local `claude` command.
+  'claude-code': (name) => new ChatClaudeCode({ model: name }),
   anthropic: (name, opts) =>
     new ChatAnthropic({
       model: name,

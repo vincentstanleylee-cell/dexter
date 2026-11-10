@@ -19,6 +19,17 @@ export interface ProviderDef {
 }
 
 export const PROVIDERS: ProviderDef[] = [
+  // Runs prompts through the local `claude` command on the user's Claude subscription
+  // (see src/model/claude-code.ts), so there is no API key. It must stay ahead of
+  // 'anthropic': `claude-code:…` also starts with `claude-`, and resolveProvider() takes
+  // the first prefix that matches.
+  {
+    id: 'claude-code',
+    displayName: 'Claude Code (your subscription)',
+    modelPrefix: 'claude-code:',
+    fastModel: 'claude-code:claude-haiku-5-5',
+    contextWindow: 1_000_000,
+  },
   {
     id: 'openai',
     displayName: 'OpenAI',
